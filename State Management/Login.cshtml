@@ -1,0 +1,37 @@
+﻿@{
+    var currentYear = DateTime.Now.Year;
+    string gebruikersnaam = "";
+    if(!Request.QueryString["gebruikersnaam"].IsEmpty()) {
+        gebruikersnaam = Request.QueryString["gebruikersnaam"];
+    }
+}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>My webshop</title>
+    </head>
+    <body>
+        <h1>Inloggen bij de Webshop</h1>
+        <!-- wachtwoorden en GET cringe -->
+        <form method="get" action="AddProduct.cshtml?">
+            <fieldset>
+                <table>
+                    <tr>
+                        <td><label for="gebruikersnaam">Gebruikersnaam</label></td>
+                        <td><input type="text" name="gebruikersnaam" id="gebruikersnaam" value="@gebruikersnaam"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="wachtwoord">Wachtwoord</label></td>
+                        <!-- Waarom stop ik dit uberhaupt in een password type als het toch leesbaar is in de url... -->
+                        <td><input type="password" name="wachtwoord" id="wachtwoord"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" value="Next"></td>
+                    </tr>
+                </table>
+            </fieldset>
+        </form>
+    </body>
+</html>

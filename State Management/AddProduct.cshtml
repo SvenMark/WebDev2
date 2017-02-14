@@ -1,0 +1,58 @@
+﻿@{
+    string gebruikersnaam = "";
+    string wachtwoord = "";
+    if(!Request.QueryString["gebruikersnaam"].IsEmpty() && !Request.QueryString["wachtwoord"].IsEmpty()) {
+        gebruikersnaam = Request.QueryString["gebruikersnaam"];
+        wachtwoord = Request.QueryString["wachtwoord"];
+
+        if(gebruikersnaam == "admin" && wachtwoord == "1234") {
+            Response.Write("<h1>U bent ingelogd onder de naam: <em>" + @gebruikersnaam + "</em></h1>");
+        }
+        else {
+            Response.Redirect("~/Login.cshtml?gebruikersnaam=" + gebruikersnaam);
+        }
+    }
+    else {
+        Response.Redirect("~/Login.cshtml");
+    }
+
+}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+    </head>
+    <body>
+        <h1>Bestellen</h1>
+
+        <form method="post" action="AddAddress.cshtml">
+            <fieldset>
+                <table>
+                    <tr>
+                        <td><label for="product">Selecteer een product</label></td>
+                        <td>
+                            <select name="product">
+                                <option value="bal">Bal</option>
+                                <option value="fiets">Fiets</option>
+                                <option value="banaan">Banaan</option>
+                                <option value="Audi">Audi</option>
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td><label for="gebruikersnaam">Gebruikersnaam</label></td>
+                        <td><input type="option" name="gebruikersnaam" id="gebruikersnaam" value="@gebruikersnaam" disabled></td>
+                    </tr>
+                    <tr>
+                        <td><label for="wachtwoord">Wachtwoord</label></td>
+                        <td><input type="password" name="wachtwoord" id="wachtwoord" value="@wachtwoord" disabled></td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" value="Next"></td>
+                    </tr>
+                </table>
+            </fieldset>
+        </form>
+    </body>
+</html>
