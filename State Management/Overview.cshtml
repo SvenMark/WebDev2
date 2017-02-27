@@ -1,0 +1,56 @@
+﻿@{
+    if (Session["gebruikersnaam"] == null)
+    {
+        Response.Redirect("Login");
+    }
+
+    if (!Request.Form["abort"].IsEmpty())
+    {
+        Response.Redirect("OrderComplete?status=cancel");
+    }
+
+    if (!Request.Form["continue"].IsEmpty())
+    {
+        Response.Redirect("OrderComplete?status=ok");
+    }
+}
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+    </head>
+    <body>
+    <form method="post">
+        <label for="gebruikersnaam">Gebruikersnaam</label>
+        <br/>
+        <input type="text" name="gebruikersnaam" id="gebruikersnaam" value="@Session["gebruikersnaam"]" readonly>
+        <br/>
+        <label for="wachtwoord">Wachtwoord</label>
+        <br/>
+        <input type="password" name="wachtwoord" id="wachtwoord" value="@Session["wachtwoord"]" readonly>
+        <br/>
+        <label for="product">Selecteer een product</label>
+        <br/>
+        <input type="text" id="product" name="product" value="@Session["product"]" readonly/>
+        <br/>
+        <label for="straat">Straat:</label>
+        <br/>
+        <input type="text" id="straat" name="straat" value="@Session["straat"]" readonly/>
+        <br/>
+        <label for="nummer">Nummer:</label>
+        <br/>
+        <input type="text" id="nummer" name="nummer" value="@Session["nummer"]" readonly/>
+        <br/>
+        <label for="plaats">Plaats:</label>
+        <br/>
+        <input type="text" id="plaats" name="plaats" value="@Session["plaats"]" readonly/>
+        <br/>
+        <input type="submit" name="abort" value="Cancel"/>
+        <input type="submit" name="continue" value="Next">
+    </form>
+    </body>
+</html>

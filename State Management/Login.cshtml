@@ -1,6 +1,5 @@
 ﻿@{
-    var currentYear = DateTime.Now.Year;
-    string gebruikersnaam = "";
+    var gebruikersnaam = "";
     if(!Request.QueryString["gebruikersnaam"].IsEmpty()) {
         gebruikersnaam = Request.QueryString["gebruikersnaam"];
     }
@@ -14,8 +13,8 @@
     </head>
     <body>
         <h1>Inloggen bij de Webshop</h1>
-        <!-- wachtwoorden en GET cringe -->
-        <form method="get" action="AddProduct.cshtml?">
+        <!-- wachtwoorden en GET kappa -->
+        <form action="AddProduct" method="get">
             <fieldset>
                 <table>
                     <tr>

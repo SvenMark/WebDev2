@@ -1,0 +1,42 @@
+﻿@{
+    bool status = false;
+    if (!Request.QueryString["status"].IsEmpty())
+    {
+        if (Request.QueryString["status"] == "ok" && Session["gebruikersnaam"] != null)
+        {
+            Database db = Database.Open("bestellingen");
+            string insertQuery = "INSERT INTO orders (gebruikersnaam, wachtwoord, product, straat, nummer, plaats) VALUES (@0, @1, @2, @3, @4, @5)";
+            db.Execute(insertQuery, Session["gebruikersnaam"], Session["wachtwoord"], Session["product"], Session["straat"], Session["nummer"], Session["plaats"]);
+            db.Close();
+            Session.Abandon();
+            status = true;
+            
+        }
+        else if (Request.QueryString["status"] == "cancel")
+        {
+            Session.Abandon();
+            Response.Redirect("Login");
+        }
+        else
+        {
+            Response.Redirect("login");
+        }
+    }
+    else {
+        Response.Redirect("login");
+    }
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+</head>
+<body>
+    @if(status) {
+    <h2>Uw betelling is verzonden! <a href="login">Klik hier om terug te gaan</a></h2>
+}
+</body>
+</html>

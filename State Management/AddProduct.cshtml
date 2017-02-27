@@ -1,11 +1,14 @@
 ﻿@{
     string gebruikersnaam = "";
     string wachtwoord = "";
-    if(!Request.QueryString["gebruikersnaam"].IsEmpty() && !Request.QueryString["wachtwoord"].IsEmpty()) {
+    if(!Request.QueryString["gebruikersnaam"].IsEmpty()) {
         gebruikersnaam = Request.QueryString["gebruikersnaam"];
         wachtwoord = Request.QueryString["wachtwoord"];
 
-        if(gebruikersnaam == "admin" && wachtwoord == "1234") {
+        Database db = Database.Open("bestellingen");
+        string query = "SELECT gebruikersnaam, wachtwoord FROM users WHERE gebruikersnaam=@0 AND wachtwoord=@1";
+
+        if (db.QuerySingle(query, gebruikersnaam, wachtwoord) != null) {
             Response.Write("<h1>U bent ingelogd onder de naam: <em>" + @gebruikersnaam + "</em></h1>");
         }
         else {
@@ -33,7 +36,7 @@
                     <tr>
                         <td><label for="product">Selecteer een product</label></td>
                         <td>
-                            <select name="product">
+                            <select name="product" readonly>
                                 <option value="bal">Bal</option>
                                 <option value="fiets">Fiets</option>
                                 <option value="banaan">Banaan</option>
@@ -42,11 +45,11 @@
                     </tr>
                     <tr>
                         <td><label for="gebruikersnaam">Gebruikersnaam</label></td>
-                        <td><input type="option" name="gebruikersnaam" id="gebruikersnaam" value="@gebruikersnaam" disabled></td>
+                        <td><input type="text" name="gebruikersnaam" id="gebruikersnaam" value="@gebruikersnaam" readonly></td>
                     </tr>
                     <tr>
                         <td><label for="wachtwoord">Wachtwoord</label></td>
-                        <td><input type="password" name="wachtwoord" id="wachtwoord" value="@wachtwoord" disabled></td>
+                        <td><input type="password" name="wachtwoord" id="wachtwoord" value="@wachtwoord" readonly></td>
                     </tr>
                     <tr>
                         <td><input type="submit" value="Next"></td>
